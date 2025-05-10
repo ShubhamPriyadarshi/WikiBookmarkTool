@@ -5,8 +5,9 @@ import { Container, CircularProgress, Typography, Box, Paper } from '@mui/materi
 import SanitizedHTML from './SanitizedHTML';  // Adjust the path if needed
 import api from './api';
 const ArticleDetail = () => {
-  const { pageid } = useParams();
+ const { pageid } = useParams();
   const [article, setArticle] = useState(null);
+  const [title, setTitle] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,10 +22,28 @@ const ArticleDetail = () => {
       });
   }, [pageid]);
 
+    useEffect(() => {
+    api.get(`/article/${pageid}`)
+      .then((res) => {
+        const { content } = res.data;
+        setArticle({ ...res.data, content });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching article:", err);
+        setLoading(false);
+      });
+  }, [pageid]);
+
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center-', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '80vh'
+      }}>
+        <CircularProgress size={60} thickness={4} />
       </Box>
     );
   }
@@ -40,47 +59,61 @@ const ArticleDetail = () => {
 //        <SanitizedHTML html={article} />
 //      </Paper>
 //    </Container>
-<Container
-  maxWidth="md"
-  sx={{
-    py: 4,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-  }}
->
-  <Paper
-    elevation={3}
-    sx={{
-      p: 3,
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center', // center children like title
-      textAlign: 'justify',  // center all text
-    }}
-  >
-
-
-    <Box
-      sx={{
-        width: '100%',
+ <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box sx={{
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'justify',
-        '& img': {
-          margin: '0 auto',
-        },
-        '& table': {
-          margin: '0 auto',
-        },
-      }}
-    >
-      <SanitizedHTML html={article} />
-    </Box>
-  </Paper>
+        flexDirection: { xs: 'column', md: 'row' },
+        gap: 3,
+      }}>
+        {/* Main Article Content */}
+        <Paper
+          elevation={3}
+          sx={{
+            flex: { xs: '1 1 100%', md: '1 1 70%' },
+            overflow: 'hidden',
+            borderRadius: 2,
+            backgroundColor: 'background.paper',
+          }}
+        >
+          {/* Article Header */}
+          <Box sx={{ p: 3, bgcolor: 'primary.main', color: 'primary.contrastText' }}>
+            <Typography variant="h4" gutterBottom fontWeight="bold">
+              {title}
+            </Typography>
+          </Box>
+
+          {/* Article Body */}
+          <Box sx={{
+            p: 3,
+            '& img': {
+              maxWidth: '100%',
+              height: 'auto',
+              display: 'block',
+              margin: '1rem auto',
+              borderRadius: 1,
+            },
+            '& table': {
+              width: 'auto',
+              maxWidth: '100%',
+              margin: '1rem auto',
+              borderCollapse: 'collapse',
+              '& th, & td': {
+                padding: '0.5rem',
+                border: '1px solid #ddd',
+              },
+            },
+            '& p': {
+              margin: '1rem 0',
+              lineHeight: 1.7,
+            },
+            '& h2, & h3, & h4': {
+              margin: '1.5rem 0 1rem',
+            },
+          }}>
+            <SanitizedHTML html={article.content} />
+          </Box>
+        </Paper>
+        </Box>
 </Container>
 
 

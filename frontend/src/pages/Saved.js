@@ -36,9 +36,9 @@ export default function Saved() {
       </Box>
 
       {/* Rendering saved articles */}
-      {saved.map(article => (
-        <SavedArticleCard key={article.pageid} article={article} showDelete />
-      ))}
+      {[...saved].reverse().map(article => (
+          <SavedArticleCard key={article.pageid} article={article} showDelete />
+        ))}
     </Container>
   );
 }
