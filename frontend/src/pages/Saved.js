@@ -7,7 +7,7 @@ export default function Saved() {
   const [saved, setSaved] = useState([]);
 
   useEffect(() => {
-    api.get('http://localhost:8000/saved')
+    api.get('/saved')
       .then(res => setSaved(res.data));
   }, []);
 

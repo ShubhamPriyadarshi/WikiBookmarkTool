@@ -20,14 +20,17 @@ export default function TagEditor({ initialTags = [], pageId }) {
       .filter(tag => tag.length > 0);
 
     try {
-      const res = await api.fetch('/set-tags', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({ pageid: pageId, tags: cleaned }),
-      });
+      const res = await api.post(
+  '/set-tags',
+  { pageid: pageId, tags: cleaned },
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  }
+);
+
 
       if (res.ok) {
         setTags(cleaned);

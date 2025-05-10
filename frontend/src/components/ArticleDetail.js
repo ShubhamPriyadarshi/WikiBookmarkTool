@@ -10,7 +10,7 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`http://localhost:8000/article/${pageid}`)
+    api.get(`/article/${pageid}`)
       .then((res) => {
         setArticle(res.data.content);
         setLoading(false);

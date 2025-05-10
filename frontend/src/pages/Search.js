@@ -11,7 +11,7 @@ export default function Search() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const res = await api.get(`http://localhost:8000/search?query=${query}`);
+    const res = await api.get(`/search?query=${query}`);
     setResults(res.data || []);  // depends on your backend shape
   };
 

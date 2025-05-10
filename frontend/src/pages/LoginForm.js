@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
-
+import api from '../components/api';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -21,20 +21,27 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:8000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ username, password }),
-    });
+    try{
+    const res = await api.post(
+  '/login',
+  new URLSearchParams({ username, password }),
+  {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  }
+);
 
-    const data = await res.json();
-    if (res.ok) {
+
+    const data =  res.data;
       localStorage.setItem('token', data.access_token);
-      navigate('/');
-    } else {
-      setError('Invalid credentials');
-    }
-  };
+  navigate('/');
+} catch (error) {
+  // Handle error (e.g., invalid credentials)
+  setError('Invalid credentials');
+}
+};
+
 
   return (
     <Container maxWidth="xs">

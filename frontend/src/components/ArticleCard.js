@@ -12,7 +12,7 @@ export default function ArticleCard({ article, showDelete = false }) {
   const handleSave = async (e) => {
     e.stopPropagation();
     try {
-      await api.post('http://localhost:8000/save', {
+      await api.post('/save', {
         page_id: article.pageid,
         title: article.title,
         snippet: article.snippet

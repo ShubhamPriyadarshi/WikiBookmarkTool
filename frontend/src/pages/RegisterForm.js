@@ -9,7 +9,7 @@ import {
   Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import api from '../components/api';
 function RegisterForm({ onSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,38 +19,54 @@ function RegisterForm({ onSuccess }) {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+  e.preventDefault();
+  setError(null);
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    setError('Passwords do not match');
+    return;
+  }
 
-    setLoading(true);
-    try {
-      const response = await fetch('http://localhost:8000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.detail || 'Registration failed');
+  setLoading(true);
+  try {
+    // Make API call to register
+    const res = await api.post(
+      '/register',
+      { username, password },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
+    );
 
-      setUsername('');
-      setPassword('');
-      setConfirmPassword('');
-      if (onSuccess) onSuccess();
-      else navigate('/login');
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    // Check if registration was successful
+    const data = res.data;
+
+    // If registration failed, throw an error (based on server response)
+    if (data.detail) {
+      throw new Error(data.detail);
     }
-  };
+
+    // Clear form fields and navigate on success
+    setUsername('');
+    setPassword('');
+    setConfirmPassword('');
+
+    // Call onSuccess callback or navigate to login page
+    if (onSuccess) onSuccess();
+    else navigate('/login');
+
+  } catch (err) {
+    // Set error message from the error object
+    setError(err.message);
+  } finally {
+    // Stop loading indicator
+    setLoading(false);
+  }
+};
+
 
   return (
     <Container maxWidth="xs">
