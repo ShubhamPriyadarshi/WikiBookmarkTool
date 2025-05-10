@@ -10,18 +10,6 @@ const ArticleDetail = () => {
   const [title, setTitle] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    api.get(`/article/${pageid}`)
-      .then((res) => {
-        setArticle(res.data.content);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching article:", err);
-        setLoading(false);
-      });
-  }, [pageid]);
-
     useEffect(() => {
     api.get(`/article/${pageid}`)
       .then((res) => {
@@ -48,8 +36,23 @@ const ArticleDetail = () => {
     );
   }
 
-  if (!article) {
-    return <Typography variant="h6" align="center">Article not found.</Typography>;
+   if (!article) {
+    return (
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '60vh'
+      }}>
+        <Typography variant="h5" align="center" gutterBottom>
+          Article not found.
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          The requested article could not be located.
+        </Typography>
+      </Box>
+    );
   }
 
   return (
