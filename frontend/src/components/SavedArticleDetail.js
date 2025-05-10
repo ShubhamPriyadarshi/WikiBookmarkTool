@@ -30,7 +30,7 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`http://localhost:8000/saved-article/${pageid}`)
+    api.get(`/saved-article/${pageid}`)
       .then((res) => {
         const { content, tags, title } = res.data;
         setArticle({ ...res.data, content });

@@ -14,7 +14,7 @@ export default function SavedArticleCard({ article }) {
     e.stopPropagation(); // Prevent the card click from triggering
 
     try {
-      await api.delete(`http://localhost:8000/saved/page/${article.page_id}`);
+      await api.delete(`/saved/page/${article.page_id}`);
       console.log('Article deleted successfully');
       window.location.reload(); // Refresh the page or use a state update method to remove it from the UI
     } catch (error) {
