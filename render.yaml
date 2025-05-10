@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: fastapi-backend
+    env: python
+    repo: https://github.com/your-username/your-repo-name
+    branch: main
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: PORT
+        value: 10000
+    plan: free
+    buildFilter:
+      paths:
+        - backend/**
+
+  - type: web
+    name: react-frontend
+    env: node
+    repo: https://github.com/your-username/your-repo-name
+    branch: main
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run start
+    staticPublishPath: frontend/build
+    plan: free
+    buildFilter:
+      paths:
+        - frontend/**
