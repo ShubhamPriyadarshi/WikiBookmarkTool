@@ -157,15 +157,20 @@ const ArticleDetail = () => {
         </Paper>
 
         {/* Sidebar */}
-        <Box sx={{
-          flex: { xs: '1 1 100%', md: '1 1 30%' },
-          position: 'relative',
-        }}>
+        <Box
+          sx={{
+            flex: { xs: '1 1 100%', md: '1 1 30%' },
+            position: { md: 'sticky' },
+            top: { md: '2rem' },
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
+          }}
+        >
           <Card
             elevation={3}
             sx={{
-              position: { md: 'sticky' },
-              top: { md: '2rem' },
+
               borderRadius: 2,
               overflow: 'hidden',
             }}
