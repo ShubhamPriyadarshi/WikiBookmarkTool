@@ -15,32 +15,6 @@ A full-stack application that lets users search Wikipedia articles, save them wi
 
 ---
 
-## 📁 Project Structure
-backend/
-├── app/
-│ ├── crud/
-│ │ └── user.py
-│ ├── db/
-│ │ └── database.py
-│ ├── models/
-│ │ └── user.py
-│ ├── routers/
-│ │ ├── auth.py
-│ │ ├── wiki.py
-│ │ └── saved.py
-│ ├── schemas/
-│ │ └── user.py
-│ ├── services/
-│ │ └── llm.py
-│ ├── util/
-│ │ └── auth.py
-│ └── main.py
-├── .env
-└── requirements.txt
-
 📄 License
 MIT License. 
-
-🧑‍💻 Author
-Built with ❤️ by Shubham Priyadarshi
 
