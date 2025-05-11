@@ -1,7 +1,5 @@
-from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import and_
 from ..db.models import Article, article_saves, User
 from ..util.auth import hash_password,verify_password
 

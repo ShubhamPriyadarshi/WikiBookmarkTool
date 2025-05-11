@@ -34,9 +34,6 @@ async def delete_saved_article_by_pageid(
     db: AsyncSession = Depends(get_db),
     user_id = Depends(get_current_user_id)
 ):
-    """
-    Remove an article from a user's saved list using the Wikipedia page_id.
-    """
     return await delete_article_by_page_id(db, user_id, page_id)
 
 @router.post("/article/set-tags")

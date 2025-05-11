@@ -30,9 +30,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
 async def verify_token(token: str = Depends(oauth2_scheme)):
     try:
         payload = decode_token(token)
-        # logger.info(payload)
         if not payload:
-            # logger.info("Payload Empty")
             return {"valid": False}
 
         return {"valid": True}

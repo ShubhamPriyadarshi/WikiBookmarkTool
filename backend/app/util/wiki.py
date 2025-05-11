@@ -10,9 +10,6 @@ async def search_wikipedia(query: str):
         })
         return resp.json()['query']['search']
 
-import requests
-from fastapi.responses import JSONResponse
-
 async def fetch_article_body_from_wikipedia(pageid: int) -> str:
     wikipedia_url = "https://en.wikipedia.org/w/api.php"
 

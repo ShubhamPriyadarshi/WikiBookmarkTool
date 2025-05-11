@@ -2,8 +2,6 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 import os
 import ssl
 from dotenv import load_dotenv
-import asyncio
-from sqlalchemy.sql import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import AsyncGenerator
 
