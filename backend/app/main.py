@@ -71,7 +71,7 @@ async def save(article: ArticleCreate, db: AsyncSession = Depends(get_db), user_
 async def articles(db: AsyncSession = Depends(get_db), user_id=Depends(get_current_user_id)): #user_id: int = 1070685144025825281):
     return await crud.get_user_articles(db, user_id)
 
-@app.get("/saved-article/{pageid}")
+@app.get("/saved/page/{pageid}")
 async def get_saved_article(pageid: int, db: AsyncSession = Depends(get_db),user_id=Depends(get_current_user_id)):
     result = await crud.get_user_article(db,pageid,user_id )
     # logger.info(body)

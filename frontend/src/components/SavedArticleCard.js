@@ -7,7 +7,7 @@ export default function SavedArticleCard({ article }) {
 
   const handleClick = () => {
     // Navigate to the saved article detail page (different route)
-    navigate(`/saved-article/${article.page_id}`);
+    navigate(`/saved/page/${article.page_id}`);
   };
 
   const handleDelete = async (e) => {

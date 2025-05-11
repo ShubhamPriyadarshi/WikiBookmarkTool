@@ -50,7 +50,7 @@ function App() {
           }
         />
         <Route
-          path="/saved-article/:pageid"
+          path="/saved/page/:pageid"
           element={
             <ProtectedRoute>
               <SavedArticleDetail />
