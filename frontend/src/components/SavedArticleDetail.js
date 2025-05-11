@@ -18,7 +18,7 @@ import SaveIcon from '@mui/icons-material/Check';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LabelIcon from '@mui/icons-material/Label';
 import SanitizedHTML from './SanitizedHTML';
-import api from './api';
+import api from '../services/Api';
 
 const ArticleDetail = () => {
   const { pageid } = useParams();
@@ -30,7 +30,7 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`/saved/page/${pageid}`)
+    api.get(`/saved/article/${pageid}`)
       .then((res) => {
         const { content, tags, title } = res.data;
         setArticle({ ...res.data, content });
@@ -57,7 +57,7 @@ const ArticleDetail = () => {
       .join(', ');
 
     try {
-      await api.post('/set-tags', {
+      await api.post('/saved/article/set-tags', {
         pageid,
         tags: cleaned,
       });

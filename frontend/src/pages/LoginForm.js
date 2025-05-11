@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
-import api from '../components/api';
+import api from '../services/Api';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +23,7 @@ const LoginForm = () => {
     e.preventDefault();
     try{
     const res = await api.post(
-  '/login',
+  '/auth/login',
   new URLSearchParams({ username, password }),
   {
     headers: {

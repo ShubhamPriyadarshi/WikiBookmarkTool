@@ -5,12 +5,16 @@ from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends
 
+from dotenv import load_dotenv
+load_dotenv()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60*25
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
 
 def hash_password(password: str):
     return pwd_context.hash(password)

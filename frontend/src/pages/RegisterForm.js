@@ -9,7 +9,7 @@ import {
   Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import api from '../components/api';
+import api from '../services/Api';
 function RegisterForm({ onSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +32,7 @@ function RegisterForm({ onSuccess }) {
   try {
     // Make API call to register
     const res = await api.post(
-      '/register',
+      '/auth/register',
       { username, password },
       {
         headers: {

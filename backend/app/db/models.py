@@ -16,20 +16,6 @@ class User(Base):
     hashed_password = Column(String)
     saved_articles = relationship("Article", secondary=article_saves, back_populates="saved_by_users")
 
-
-# class Article(Base):
-#     __tablename__ = "articles"
-#     id = Column(Integer, primary_key=True, index=True)
-#     title = Column(String)
-#     url = Column(String)
-#     tags = Column(String)
-#     user_id = Column(Integer, ForeignKey("users.id"))
-#
-#     user = relationship("User", backref="articles")
-
-# Many-to-many association table
-
-
 class Article(Base):
     __tablename__ = "articles"
     id = Column(Integer, primary_key=True, index=True)
@@ -39,6 +25,6 @@ class Article(Base):
     tags = Column(String)  # comma-separated
     body = Column(Text, nullable=False)
 
-    # Relationship to access users who saved this article
     saved_by_users = relationship("User", secondary=article_saves, back_populates="saved_articles")
+
 

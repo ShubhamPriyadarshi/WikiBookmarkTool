@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, Stack, CardActions, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import api from '../components/api';
+import api from '../services/Api';
 
 export default function SavedArticleCard({ article }) {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function SavedArticleCard({ article }) {
     e.stopPropagation(); // Prevent the card click from triggering
 
     try {
-      await api.delete(`/saved/page/${article.page_id}`);
+      await api.delete(`/saved/article/${article.page_id}`);
       console.log('Article deleted successfully');
       window.location.reload(); // Refresh the page or use a state update method to remove it from the UI
     } catch (error) {

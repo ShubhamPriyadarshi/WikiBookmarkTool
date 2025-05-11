@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Container, CircularProgress, Typography, Box, Paper } from '@mui/material';
 import SanitizedHTML from './SanitizedHTML';  // Adjust the path if needed
-import api from './api';
+import api from '../services/Api';
 const ArticleDetail = () => {
  const { pageid } = useParams();
   const [article, setArticle] = useState(null);
@@ -11,7 +11,7 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-    api.get(`/article/${pageid}`)
+    api.get(`/wiki/article/${pageid}`)
       .then((res) => {
         const { content } = res.data;
         setArticle({ ...res.data, content });

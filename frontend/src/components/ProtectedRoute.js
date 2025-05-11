@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
-import api from './api';
+import api from '../services/Api';
 const ProtectedRoute = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(null); // null = loading, true/false = result
   const { logout } = useAuth();
@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
 
 
       try {
-        const res = await api.get('/verify-token', {
+        const res = await api.get('/auth/verify-token', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -33,7 +33,7 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   if (isAuthorized === null) {
-    return null; // Or a loading spinner
+    return null;
   }
 
   if (!isAuthorized) {

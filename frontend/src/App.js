@@ -2,11 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import Saved from './pages/Saved';
 import MyAppBar from './components/AppBar';
-import { WebSocketProvider } from './components/WebSocketContext';
 import ArticleDetail from './components/ArticleDetail';
 import SavedArticleDetail from './components/SavedArticleDetail';
-//import './App.css';
-
+import {WebSocketProvider} from './components/WebSocketContext'
 import RegisterForm from './pages/RegisterForm';
 import LoginForm from './pages/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute';

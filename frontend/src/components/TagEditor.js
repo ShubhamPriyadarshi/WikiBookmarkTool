@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { TextField, IconButton, Typography, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Check';
-import api from './api'
+import api from '../services/Api';
 export default function TagEditor({ initialTags = [], pageId }) {
   const [editing, setEditing] = useState(false);
   const [tags, setTags] = useState(initialTags);
@@ -21,7 +21,7 @@ export default function TagEditor({ initialTags = [], pageId }) {
 
     try {
       const res = await api.post(
-  '/set-tags',
+  '/saved/article/set-tags',
   { pageid: pageId, tags: cleaned },
   {
     headers: {

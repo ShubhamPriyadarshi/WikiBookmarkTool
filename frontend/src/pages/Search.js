@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TextField, Container } from '@mui/material';
 import ArticleCard from '../components/ArticleCard';
 import { useAuth } from '../components/AuthContext';
-import api from '../components/api';
+import api from '../services/Api';
 export default function Search() {
   const { logout } = useAuth();
   const [query, setQuery] = useState('');
@@ -11,7 +11,7 @@ export default function Search() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const res = await api.get(`/search?query=${query}`);
+    const res = await api.get(`/wiki/article/search?query=${query}`);
     setResults(res.data || []);  // depends on your backend shape
   };
 

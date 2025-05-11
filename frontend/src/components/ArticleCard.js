@@ -1,18 +1,17 @@
 import { Card, CardContent, Typography, Stack, CardActions, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import api from '../components/api';
+import api from '../services/Api';
 
 export default function ArticleCard({ article, showDelete = false }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/article/${article.pageid}`);  // Navigate to the article detail page
+    navigate(`/wiki/article/${article.pageid}`);  // Navigate to the article detail page
   };
 
   const handleSave = async (e) => {
     e.stopPropagation();
     try {
-      await api.post('/save', {
+      await api.post('/saved', {
         page_id: article.pageid,
         title: article.title,
         snippet: article.snippet
@@ -26,7 +25,7 @@ export default function ArticleCard({ article, showDelete = false }) {
   const handleDelete = async (e) => {
     e.stopPropagation();
     try {
-      await api.delete(`http://localhost:8000/saved/${article.pageid}`);
+      await api.delete(`/saved/article/${article.pageid}`);
       console.log('Article deleted successfully');
       window.location.reload();  // Or use a callback to update parent state
     } catch (error) {

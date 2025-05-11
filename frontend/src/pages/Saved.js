@@ -1,6 +1,6 @@
 import { Container, Typography, Box } from '@mui/material';
 import SavedArticleCard from '../components/SavedArticleCard';
-import api from '../components/api';
+import api from '../services/Api';
 import { useState, useEffect } from 'react';
 
 export default function Saved() {

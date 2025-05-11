@@ -1,37 +1,15 @@
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import and_, or_
-from .models import User, Article, article_saves
-from .schemas import TagUpdate, ArticleOut
-from .auth import hash_password, verify_password
-from .llm import generate_tags
+from sqlalchemy import and_
+from ..db.models import Article, article_saves
+from ..db.schemas.article import TagUpdate
+from ..util.llm import generate_tags
 import logging
 
-from .wiki import fetch_article_body_from_wikipedia
+from ..util.wiki import fetch_article_body_from_wikipedia
 
 logger = logging.getLogger("uvicorn")
-
-
-async def get_user_by_username(db: AsyncSession, username: str):
-    result = await db.execute(select(User).where(User.username == username))
-    return result.scalar()
-
-
-async def create_user(db: AsyncSession, username: str, password: str):
-    user = User(username=username, hashed_password=hash_password(password))
-    db.add(user)
-    await db.commit()
-    await db.refresh(user)
-    return user
-
-
-async def authenticate_user(db, username, password):
-    user = await get_user_by_username(db, username)
-    if user and verify_password(password, user.hashed_password):
-        return user
-    return None
-
 
 async def get_article_by_page_id(db: AsyncSession, page_id: int):
     """Get article by external page ID or None if it doesn't exist"""
