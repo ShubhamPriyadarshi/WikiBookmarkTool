@@ -1,11 +1,12 @@
 import { Card, CardContent, Typography, Stack, CardActions, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/Api';
 
 export default function ArticleCard({ article, showDelete = false }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/wiki/article/${article.pageid}`);  // Navigate to the article detail page
+    navigate(`/article/${article.pageid}`);  // Navigate to the article detail page
   };
 
   const handleSave = async (e) => {

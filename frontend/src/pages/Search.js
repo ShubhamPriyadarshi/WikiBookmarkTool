@@ -11,7 +11,7 @@ export default function Search() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const res = await api.get(`/wiki/article/search?query=${query}`);
+    const res = await api.get(`/wiki/search?query=${query}`);
     setResults(res.data || []);  // depends on your backend shape
   };
 

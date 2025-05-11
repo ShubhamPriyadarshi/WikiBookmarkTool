@@ -13,6 +13,6 @@ async def get_article_detail(pageid: int):
 
     return {"content": body}
 
-@router.get("/article/search")
+@router.get("/search")
 async def search(query: str):
     return await search_wikipedia(query)
